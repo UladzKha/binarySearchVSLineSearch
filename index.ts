@@ -1,72 +1,60 @@
-main()
+class Sort {
+    public main() {
+        let arr: Array<number> = []
 
-async function main() {
-    let arr: Array<number> = new Array(1000000000);
+        for (let i = 0; i < 10000000; i++) {
+            arr.push(i);
+        }
 
-    for (let i = 0; i < 1000000; i++) {
-        arr.push(i);
+        console.time('binary search');
+        console.log(this.binarySearch(arr, 9999999));
+        console.timeEnd('binary search');
+        console.time('regular search');
+        this.regularSearch(arr, 9999999);
+        console.timeEnd('regular search');
     }
 
-    console.time('binary search');
-    await binarySearch(arr, 99999999);
-    console.timeEnd('binary search');
-    console.time('regular search');
-    await regularSearch(arr, 999999999);
-    console.timeEnd('regular search');
-}
+    regularSearch(arr: Array<number>, num: number) {
+        arr.forEach(x => {
+            if (x == num) {
+                return true;
+            }
+        });
 
-
-
-async function regularSearch(arr: Array<number>, num: number) {
-    let result: boolean = false;
-    arr.forEach(x => {
-        if (x == num) {
-            result = true;
-        }
-    });
-
-    return result;
-}
-
-
-async function binarySearch(arr: Array<number>, num: number) {
-    let leftIndex: number = 0;
-    let rightIndex: number = arr.length - 1;
-    let midIndex = Math.round((leftIndex + rightIndex) / 2)
-
-    let left: number = arr[leftIndex];
-    let right: number = arr[rightIndex];
-    let mid: number = arr[midIndex]
-
-
-    if (num < left || num > right) {
         return false;
     }
 
-    while (left <= right) {
-        if (num == left || num == mid || num == right) {
-            return true;
-        } else if (num < left || num > right) {
-            return false;
-        } else if (num > left && num < mid) {
-            rightIndex = midIndex - 1;
-            leftIndex += 1;
-            midIndex = Math.round((leftIndex + rightIndex) / 2);
+    binarySearch(arr: Array<number>, num: number) {
+        let left: number = 0;
+        let right: number = arr.length - 1;
+        let mid = Math.round((left + right) / 2)
 
-            left = arr[leftIndex];
-            right = arr[rightIndex];
-            mid = arr[midIndex];
-        } else if (num > mid && num < right) {
-            leftIndex = midIndex + 1;
-            rightIndex -= 1;
-            midIndex = Math.round((leftIndex + rightIndex) / 2);
-
-            left = arr[leftIndex];
-            right = arr[rightIndex];
-            mid = arr[midIndex];
-        } else {
+        if (num < arr[left] || num > arr[right]) {
             return false;
         }
 
+        while (left <= right) {
+            if (num == arr[left] || num == arr[mid] || num == arr[right]) {
+                return true;
+            } else if (num < arr[left] || num > arr[right]) {
+                return false;
+            } else if (num > arr[left] && num < arr[mid]) {
+                right = mid - 1;
+                left += 1;
+                mid = Math.round((left + right) / 2);
+
+
+            } else if (num > arr[mid] && num < arr[right]) {
+                left = mid + 1;
+                right -= 1;
+                mid = Math.round((left + right) / 2);
+            }
+        }
+
+        return false;
     }
 }
+
+const s = new Sort();
+s.main();
+
