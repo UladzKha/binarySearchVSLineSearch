@@ -1,4 +1,4 @@
-class Sort {
+class Search {
     public main() {
         let arr: Array<number> = []
 
@@ -55,6 +55,6 @@ class Sort {
     }
 }
 
-const s = new Sort();
+const s = new Search();
 s.main();
 
