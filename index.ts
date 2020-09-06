@@ -15,13 +15,15 @@ class Search {
     }
 
     regularSearch(arr: Array<number>, num: number) {
+        let result: boolean = false;
+        
         arr.forEach(x => {
             if (x == num) {
-                return true;
+                result = true;
             }
         });
 
-        return false;
+        return result;
     }
 
     binarySearch(arr: Array<number>, num: number) {
